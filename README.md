@@ -7,6 +7,12 @@ This project includes:
 - 🤖 **RAG Server**: Python-based Retrieval-Augmented Generation server for AI-powered content queries
 - 📖 **Docusaurus Frontend**: Modern, searchable documentation interface
 
+## Project Demo
+
+<video src="book-source/static/demo/demo.mp4" controls="controls" style="max-width: 100%; height: auto;">
+  Your browser does not support the video tag.
+</video>
+
 ## Installation
 
 ```bash
