@@ -1,0 +1,157 @@
+.translateContainer {
+    /* Margins handled by parent flex container */
+}
+
+.translateButton {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+.translateButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(66, 133, 244, 0.4);
+}
+
+.translateButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.translateButton.active {
+    background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);
+}
+
+.spinner {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.notAuthMessage {
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 8px;
+}
+
+.notAuthMessage p {
+    margin: 0;
+    color: #856404;
+    font-weight: 500;
+}
+
+.notAuthMessage a {
+    color: #0056b3;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.error {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    color: #721c24;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error p {
+    margin: 0;
+    flex: 1;
+}
+
+.dismissButton {
+    padding: 0.25rem 0.75rem;
+    background: #721c24;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dismissButton:hover {
+    background: #491217;
+}
+
+.translatedContent {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.translationHeader {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e8f0fe;
+}
+
+.translationHeader h3 {
+    margin: 0 0 0.5rem 0;
+    color: #1a73e8;
+    font-size: 1.5rem;
+}
+
+.translationNote {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #5f6368;
+    font-style: italic;
+}
+
+.translationText {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #202124;
+    white-space: pre-wrap;
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Al-Qalam Taj Nastaleeq', serif;
+}
+
+/* RTL support for Urdu text */
+.translationText {
+    text-align: right;
+}
+
+.translationText p {
+    margin-bottom: 1rem;
+}
