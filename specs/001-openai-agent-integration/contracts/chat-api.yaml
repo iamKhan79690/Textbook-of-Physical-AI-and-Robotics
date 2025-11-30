@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: Chat API - OpenAI Agent Builder Integration
+  description: |
+    API for chat interface that integrates RAG server context retrieval with OpenAI Agent Builder Agent.
+    This endpoint combines user queries with book content context before sending to the agent.
+  version: 1.0.0
+  contact:
+    name: AI Book Development Team
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server (RAG server)
+  - url: https://api.example.com
+    description: Production server (example)
+
+paths:
+  /chat:
+    post:
+      summary: Send a chat message and receive agent response
+      description: |
+        Processes a user query by:
+        1. Retrieving relevant context from RAG server
+        2. Combining query + context
+        3. Sending to OpenAI Agent Builder workflow
+        4. Returning agent response
+        
+        Maintains conversation context via thread_id.
+      operationId: sendChatMessage
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+            example:
+              query: "What is ROS 2?"
+              conversation_id: "550e8400-e29b-41d4-a716-446655440000"
+      responses:
+        '200':
+          description: Successful response with agent answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+              example:
+                response: "ROS 2 (Robot Operating System 2) is a middleware framework for robotics development..."
+                conversation_id: "550e8400-e29b-41d4-a716-446655440000"
+                rag_context_used: true
+                response_time_ms: 3200
+        '400':
+          description: Bad request (invalid query, missing required fields)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Query cannot be empty"
+                code: "VALIDATION_ERROR"
+        '500':
+          description: Server error (RAG server error, Agent Builder API error, network failure)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Failed to retrieve context from RAG server"
+                code: "RAG_SERVER_ERROR"
+                details: "Connection timeout after 5 seconds"
+        '503':
+          description: Service unavailable (Agent Builder API rate limited or unavailable)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "OpenAI Agent Builder API is currently unavailable"
+                code: "AGENT_API_UNAVAILABLE"
+                retry_after: 60
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: User's question or message
+          minLength: 1
+          maxLength: 2000
+          example: "What is ROS 2?"
+        conversation_id:
+          type: string
+          format: uuid
+          description: Optional conversation thread ID for maintaining context. If not provided, a new conversation is started.
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        session_id:
+          type: string
+          description: Browser session identifier for analytics
+          example: "sess_abc123"
+    
+    ChatResponse:
+      type: object
+      required:
+        - response
+        - conversation_id
+      properties:
+        response:
+          type: string
+          description: Agent's response text
+          example: "ROS 2 (Robot Operating System 2) is a middleware framework..."
+        conversation_id:
+          type: string
+          format: uuid
+          description: Conversation thread ID (same as input or newly created)
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        rag_context_used:
+          type: boolean
+          description: Whether RAG context was successfully retrieved and used
+          example: true
+        response_time_ms:
+          type: integer
+          description: Total time taken to process request (RAG + Agent) in milliseconds
+          example: 3200
+        rag_chunks_count:
+          type: integer
+          description: Number of RAG chunks retrieved (0 if RAG failed)
+          example: 4
+    
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+          example: "Failed to retrieve context from RAG server"
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+            - VALIDATION_ERROR
+            - RAG_SERVER_ERROR
+            - AGENT_API_ERROR
+            - AGENT_API_UNAVAILABLE
+            - NETWORK_ERROR
+            - INTERNAL_ERROR
+          example: "RAG_SERVER_ERROR"
+        details:
+          type: string
+          description: Additional error details for debugging (not shown to users in production)
+          example: "Connection timeout after 5 seconds"
+        retry_after:
+          type: integer
+          description: Suggested retry delay in seconds (for rate limiting)
+          example: 60
+

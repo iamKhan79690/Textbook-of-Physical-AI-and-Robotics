@@ -1,0 +1,22 @@
+# Web Framework
+fastapi>=0.115.13
+uvicorn[standard]>=0.34.0
+
+# AI & LLM SDKs
+openai>=1.68.0
+openai-agents>=0.0.12
+
+# Vector Database Client
+qdrant-client==1.12.1
+
+# Async Postgres (replaces psycopg2-binary)
+asyncpg==0.30.0
+
+# Configuration & Settings
+pydantic-settings==2.8.0
+python-dotenv>=1.0.1
+python-multipart==0.0.20
+
+# Additional utilities
+pyyaml==6.0.2
+tiktoken==0.9.0

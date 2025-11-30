@@ -1,0 +1,8 @@
+{
+    "label": "📖 Chapter 1: ROS 2 Basics",
+    "position": 2,
+    "link": {
+        "type": "generated-index",
+        "description": "Master ROS 2 architecture, communication patterns, and hands-on robotics development."
+    }
+}

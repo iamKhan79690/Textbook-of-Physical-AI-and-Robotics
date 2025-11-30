@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: RAG Server API Reference
+  description: |
+    Reference for existing RAG server endpoint used by chat integration.
+    This endpoint is already implemented in rag-server/main.py.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000
+    description: RAG server (existing)
+
+paths:
+  /search_book:
+    post:
+      summary: Search book content for relevant chunks
+      description: |
+        Searches the book content using semantic similarity.
+        Returns relevant text chunks that match the query.
+      operationId: searchBook
+      tags:
+        - RAG
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchQuery'
+            example:
+              query: "What is ROS 2?"
+      responses:
+        '200':
+          description: Successful search with context chunks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              example:
+                context: "ROS 2 (Robot Operating System 2) is the de facto standard...\n\n---\n\nROS 2 provides a middleware layer..."
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    SearchQuery:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: Search query
+          example: "What is ROS 2?"
+    
+    SearchResponse:
+      type: object
+      required:
+        - context
+      properties:
+        context:
+          type: string
+          description: Combined relevant text chunks separated by "\n\n---\n\n"
+          example: "ROS 2 (Robot Operating System 2) is the de facto standard...\n\n---\n\nROS 2 provides a middleware layer..."
+    
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Embedding error: Invalid API key"
+

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#E8F5E9"/>
+  <path d="M 100 200 L 200 100 L 300 200 Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="3"/>
+  <circle cx="200" cy="80" r="15" fill="#FDD835"/>
+  <text x="200" y="270" font-family="Arial" font-size="24" fill="#2E7D32" text-anchor="middle" font-weight="bold">AI Mountain</text>
+</svg>
