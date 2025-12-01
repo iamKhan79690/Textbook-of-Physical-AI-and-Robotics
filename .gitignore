@@ -26,6 +26,7 @@
 .env.test.local
 .env.production.local
 rag-server/.env
+.env.txt
 
 # AI Assistant directories
 .gemini/

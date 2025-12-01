@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#F3E5F5"/>
+  <circle cx="200" cy="150" r="80" fill="#61DAFB" opacity="0.8"/>
+  <ellipse cx="160" cy="150" rx="30" ry="60" fill="#61DAFB"/>
+  <ellipse cx="240" cy="150" rx="30" ry="60" fill="#61DAFB"/>
+  <ellipse cx="200" cy="110" rx="60" ry="30" fill="#61DAFB"/>
+  <ellipse cx="200" cy="190" rx="60" ry="30" fill="#61DAFB"/>
+  <circle cx="200" cy="150" r="20" fill="#282C34"/>
+  <text x="200" y="270" font-family="Arial" font-size="24" fill="#7B1FA2" text-anchor="middle" font-weight="bold">AI Technology</text>
+</svg>

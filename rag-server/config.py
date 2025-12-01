@@ -10,10 +10,10 @@ class Settings(BaseSettings):
 
     # OpenAI Configuration
     openai_api_key: str
-    openai_model: str = "gpt-3.5-turbo"
+    openai_model: str = "gpt-4o-mini"  # Faster model
     openai_embedding_model: str = "text-embedding-3-small"
-    openai_max_tokens: int = 500
-    openai_temperature: float = 0.7
+    openai_max_tokens: int = 300  # Reduced for faster responses
+    openai_temperature: float = 0.3  # Lower for more focused, faster responses
 
     # Qdrant Vector Database
     qdrant_url: str

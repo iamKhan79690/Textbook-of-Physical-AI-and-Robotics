@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
 
-from routers import chat, health, chatkit_token
+from routers import chat, health, chatkit_token, translation, personalization
 from services.db_service import init_db_pool, close_db_pool
 from config import settings
 
@@ -62,6 +62,8 @@ app.add_middleware(
 app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(chatkit_token.router, prefix="/api", tags=["chatkit"])
+app.include_router(translation.router, tags=["translation"])
+app.include_router(personalization.router, tags=["personalization"])
 
 
 @app.get("/")

@@ -68,6 +68,31 @@ const config = {
     ],
   ],
 
+  plugins: [
+    function (context, options) {
+      return {
+        name: 'custom-webpack-config',
+        configureWebpack(config, isServer) {
+          if (!isServer) {
+            return {
+              resolve: {
+                fallback: {
+                  fs: false,
+                  path: false,
+                  crypto: false,
+                  stream: false,
+                  util: false,
+                  buffer: false,
+                },
+              },
+            };
+          }
+          return {};
+        },
+      };
+    },
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -90,6 +115,10 @@ const config = {
           {
             href: 'https://github.com/your-org/ai-book',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'custom-authButton',
             position: 'right',
           },
         ],
