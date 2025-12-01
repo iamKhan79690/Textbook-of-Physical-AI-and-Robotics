@@ -38,6 +38,9 @@ export default function PersonalizeButton({ pageContent, pageTitle }: Personaliz
         setError(null);
 
         try {
+            console.log('🔵 PersonalizeButton clicked');
+            console.log('Session:', session);
+
             // Get content (reuse logic from TranslateButton or similar)
             let contentToPersonalize = "";
             const selectors = [

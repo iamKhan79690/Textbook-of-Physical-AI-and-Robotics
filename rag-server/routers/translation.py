@@ -3,7 +3,7 @@ Translation router for text translation to Urdu.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from openai import OpenAI
+from openai import AsyncOpenAI
 from config import settings
 import logging
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-client = OpenAI(api_key=settings.openai_api_key)
+client = AsyncOpenAI(api_key=settings.openai_api_key)
 
 
 class TranslationRequest(BaseModel):
@@ -48,7 +48,7 @@ Text to translate:
 Please provide a high-quality Urdu translation."""
 
         # Call OpenAI API
-        response = client.chat.completions.create(
+        response = await client.chat.completions.create(
             model= "gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_prompt},

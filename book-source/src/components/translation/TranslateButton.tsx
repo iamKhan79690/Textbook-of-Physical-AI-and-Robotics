@@ -28,6 +28,9 @@ export default function TranslateButton({ pageContent, pageTitle }: TranslateBut
     }
 
     const handleTranslate = async () => {
+        console.log('🔵 TranslateButton clicked');
+        console.log('Session:', session);
+
         if (translatedContent && showTranslation) {
             // Toggle off
             setShowTranslation(false);
@@ -40,6 +43,7 @@ export default function TranslateButton({ pageContent, pageTitle }: TranslateBut
             return;
         }
 
+        console.log('🟢 Starting translation...');
         setIsTranslating(true);
         setError(null);
 
@@ -70,10 +74,12 @@ export default function TranslateButton({ pageContent, pageTitle }: TranslateBut
             }
 
             if (!contentToTranslate || contentToTranslate.length < 10) {
+                console.error("❌ No content found to translate");
                 throw new Error("No content found to translate. Please make sure you're on a documentation page.");
             }
 
-            // Call RAG server for translation
+            console.log('📝 Content to translate length:', contentToTranslate.length);
+            console.log('🚀 Sending request to http://localhost:8000/translate');
             const response = await fetch("http://localhost:8000/translate", {
                 method: "POST",
                 headers: {
@@ -86,7 +92,11 @@ export default function TranslateButton({ pageContent, pageTitle }: TranslateBut
                 }),
             });
 
+            console.log('📡 Response status:', response.status);
+
             if (!response.ok) {
+                const errorText = await response.text();
+                console.error('❌ API Error:', errorText);
                 throw new Error("Translation failed");
             }
 

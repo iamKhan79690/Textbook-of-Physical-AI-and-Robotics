@@ -3,7 +3,7 @@ Personalization router for rewriting content based on user profile.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from openai import OpenAI
+from openai import AsyncOpenAI
 from config import settings
 import logging
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-client = OpenAI(api_key=settings.openai_api_key)
+client = AsyncOpenAI(api_key=settings.openai_api_key)
 
 
 class UserProfile(BaseModel):
@@ -90,7 +90,7 @@ Original Content:
 Please rewrite this content for the learner."""
 
         # Call OpenAI API
-        response = client.chat.completions.create(
+        response = await client.chat.completions.create(
             model=settings.openai_model, # Use the optimized model setting
             messages=[
                 {"role": "system", "content": system_prompt},

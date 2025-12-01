@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-Autonomous-Navigation/intro" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Chapter 3: Autonomous Navigation | AI-Native Book</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://your-docusaurus-site.example.com/docs/Autonomous-Navigation/intro"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Chapter 3: Autonomous Navigation | AI-Native Book"><meta data-rh="true" name="description" content="Master autonomous robot navigation with SLAM, Nav2, and multi-sensor fusion for wheeled and humanoid robots"><meta data-rh="true" property="og:description" content="Master autonomous robot navigation with SLAM, Nav2, and multi-sensor fusion for wheeled and humanoid robots"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://your-docusaurus-site.example.com/docs/Autonomous-Navigation/intro"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/Autonomous-Navigation/intro" hreflang="en"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/Autonomous-Navigation/intro" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Chapter 3: Autonomous Navigation","item":"https://your-docusaurus-site.example.com/docs/Autonomous-Navigation/intro"}]}</script><link rel="stylesheet" href="/assets/css/styles.e8e42a22.css">
+<script src="/assets/js/runtime~main.2a2f2056.js" defer="defer"></script>
+<script src="/assets/js/main.903acabd.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="AI Book Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="AI Book Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">AI-Native Book</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/">Book</a><a class="navbar__item navbar__link" href="/blog">Blog</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/your-org/ai-book" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/"><span title="Welcome to the Physical AI Robotics Book" class="linkLabel_WmDU">Welcome to the Physical AI Robotics Book</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/-getting-started"><span title="🚀 Getting Started" class="categoryLinkLabel_W154">🚀 Getting Started</span></a><button aria-label="Expand sidebar category &#x27;🚀 Getting Started&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/-chapter-1-ros-2-basics"><span title="📖 Chapter 1: ROS 2 Basics" class="categoryLinkLabel_W154">📖 Chapter 1: ROS 2 Basics</span></a><button aria-label="Expand sidebar category &#x27;📖 Chapter 1: ROS 2 Basics&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/Gazebo-Simulation/intro"><span title="Gazebo-Simulation" class="categoryLinkLabel_W154">Gazebo-Simulation</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/Autonomous-Navigation/intro"><span title="Autonomous-Navigation" class="categoryLinkLabel_W154">Autonomous-Navigation</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/Autonomous-Navigation/intro"><span title="Chapter 3: Autonomous Navigation" class="linkLabel_WmDU">Chapter 3: Autonomous Navigation</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/navigation-and-localization-overview"><span title="Lesson 1: Navigation and Localization Overview" class="linkLabel_WmDU">Lesson 1: Navigation and Localization Overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/visual-slam-systems"><span title="Lesson 2: Visual SLAM Systems" class="linkLabel_WmDU">Lesson 2: Visual SLAM Systems</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/introduction-to-isaac-sim"><span title="Lesson 3: Introduction to Isaac Sim" class="linkLabel_WmDU">Lesson 3: Introduction to Isaac Sim</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/nav2-path-planning-stack"><span title="Lesson 4: Nav2 Path Planning Stack" class="linkLabel_WmDU">Lesson 4: Nav2 Path Planning Stack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/obstacle-avoidance-and-dynamic-environments"><span title="Lesson 5: Obstacle Avoidance and Dynamic Environments" class="linkLabel_WmDU">Lesson 5: Obstacle Avoidance and Dynamic Environments</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/autonomous-humanoid-navigation"><span title="Lesson 6: Autonomous Humanoid Navigation" class="linkLabel_WmDU">Lesson 6: Autonomous Humanoid Navigation</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/multi-sensor-perception-and-fusion"><span title="Lesson 7: Multi-Sensor Perception and Fusion" class="linkLabel_WmDU">Lesson 7: Multi-Sensor Perception and Fusion</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/Autonomous-Navigation/capstone-mission"><span title="Lesson 8: Capstone - Autonomous Navigation End-to-End" class="linkLabel_WmDU">Lesson 8: Capstone - Autonomous Navigation End-to-End</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Autonomous-Navigation</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Chapter 3: Autonomous Navigation</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;align-items:center"><div class="notAuthMessage_gyQm"><p>🔒 Please <a href="/signin">sign in</a> to access Urdu translation</p></div></div><div class="theme-doc-markdown markdown"><header><h1>Chapter 3: Autonomous Navigation</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-welcome-to-autonomous-navigation">🎯 Welcome to Autonomous Navigation!<a href="#-welcome-to-autonomous-navigation" class="hash-link" aria-label="Direct link to 🎯 Welcome to Autonomous Navigation!" title="Direct link to 🎯 Welcome to Autonomous Navigation!" translate="no">​</a></h2>
+<blockquote>
+<p>[!NOTE]
+<strong>Building on Your Skills</strong>: This chapter assumes you&#x27;ve completed Chapters 1 &amp; 2. You&#x27;ll now combine ROS 2 fundamentals and robot simulation to create truly autonomous systems that can navigate unknown environments!</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-challenge">The Challenge<a href="#the-challenge" class="hash-link" aria-label="Direct link to The Challenge" title="Direct link to The Challenge" translate="no">​</a></h3>
+<p>Imagine a robot tasked with navigating an unknown warehouse, delivering packages to specific locations. The robot must:</p>
+<ol>
+<li class=""><strong>Know where it is</strong> - localization in an unknown environment</li>
+<li class=""><strong>Build a map as it moves</strong> - simultaneously map its surroundings</li>
+<li class=""><strong>Plan efficient paths</strong> - find collision-free routes to destinations</li>
+<li class=""><strong>Avoid obstacles</strong> - react to both static and moving obstacles</li>
+<li class=""><strong>Maintain balance</strong> - especially for humanoid robots</li>
+</ol>
+<p>This is the core challenge of <strong>autonomous navigation</strong>. It&#x27;s not about following pre-programmed waypoints on known maps; it&#x27;s about robots making intelligent decisions to navigate real-world environments <strong>in real-time</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-why-this-matters">🌟 Why This Matters<a href="#-why-this-matters" class="hash-link" aria-label="Direct link to 🌟 Why This Matters" title="Direct link to 🌟 Why This Matters" translate="no">​</a></h2>
+<p>Autonomous navigation is <strong>transformative</strong> for robotics applications:</p>
+<ul>
+<li class="">🏭 <strong>Warehousing &amp; Logistics</strong>: Robots autonomously navigate warehouse floors to pick and deliver items</li>
+<li class="">🗺️ <strong>Exploration</strong>: Mobile robots explore unknown environments (disaster zones, caves, planets)</li>
+<li class="">🤖 <strong>Service Robots</strong>: Delivery, cleaning, and helper robots navigate public spaces safely</li>
+<li class="">🚨 <strong>Search &amp; Rescue</strong>: Robots navigate disaster sites to locate and assist people</li>
+<li class="">👤 <strong>Humanoid Assistants</strong>: Humanoid robots navigate homes and workplaces to assist humans</li>
+</ul>
+<blockquote>
+<p>[!TIP]
+<strong>Industry Growth</strong>: The autonomous mobile robot market is growing at <strong>15-20% annually</strong>, with warehouse automation driving 40% of new robot deployments!</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-what-makes-this-hard">🧠 What Makes This Hard?<a href="#-what-makes-this-hard" class="hash-link" aria-label="Direct link to 🧠 What Makes This Hard?" title="Direct link to 🧠 What Makes This Hard?" translate="no">​</a></h2>
+<p>Navigation requires solving <strong>three fundamental problems</strong> simultaneously:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1--localization-where-am-i">1. 📍 <strong>Localization</strong>: Where am I?<a href="#1--localization-where-am-i" class="hash-link" aria-label="Direct link to 1--localization-where-am-i" title="Direct link to 1--localization-where-am-i" translate="no">​</a></h3>
+<p><strong>The Problem</strong>:</p>
+<ul>
+<li class="">GPS doesn&#x27;t work indoors</li>
+<li class="">Odometry drifts over time (wheels slip, IMU bias accumulates)</li>
+<li class="">Visual landmarks can be ambiguous or repeating</li>
+</ul>
+<p><strong>The Solution</strong>: Visual SLAM (visual features + bundle adjustment)</p>
+<blockquote>
+<p>[!NOTE]
+<strong>Real-World Analogy</strong>: Like finding your way in a new building by remembering distinctive rooms and hallways!</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-️-mapping-whats-around-me">2. 🗺️ <strong>Mapping</strong>: What&#x27;s around me?<a href="#2-️-mapping-whats-around-me" class="hash-link" aria-label="Direct link to 2-️-mapping-whats-around-me" title="Direct link to 2-️-mapping-whats-around-me" translate="no">​</a></h3>
+<p><strong>The Problem</strong>:</p>
+<ul>
+<li class="">Sensor data is partial and noisy</li>
+<li class="">Must fuse camera, LiDAR, and IMU data</li>
+<li class="">Maps must be updated in real-time as obstacles change</li>
+</ul>
+<p><strong>The Solution</strong>: Costmap layers (static obstacles, dynamic obstacles, inflation)</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-️-path-planning-how-do-i-get-there">3. 🛤️ <strong>Path Planning</strong>: How do I get there?<a href="#3-️-path-planning-how-do-i-get-there" class="hash-link" aria-label="Direct link to 3-️-path-planning-how-do-i-get-there" title="Direct link to 3-️-path-planning-how-do-i-get-there" translate="no">​</a></h3>
+<p><strong>The Problem</strong>:</p>
+<ul>
+<li class="">Must balance path optimality with computational speed</li>
+<li class="">Different environments need different planner strategies</li>
+<li class="">Dynamic obstacles require continuous replanning</li>
+</ul>
+<p><strong>The Solution</strong>: Multi-level planning (global planner + local planner)</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-chapter-overview">📚 Chapter Overview<a href="#-chapter-overview" class="hash-link" aria-label="Direct link to 📚 Chapter Overview" title="Direct link to 📚 Chapter Overview" translate="no">​</a></h2>
+<p>This chapter contains <strong>9 lessons</strong> (including intro):</p>
+<table><thead><tr><th>Lesson</th><th>Topic</th><th>Duration</th><th>Type</th><th>What You&#x27;ll Build</th></tr></thead><tbody><tr><td><strong>0</strong></td><td>Introduction</td><td>15 min</td><td>Overview</td><td>Understanding navigation challenges</td></tr><tr><td><strong>1</strong></td><td>SLAM &amp; Localization</td><td>2.5h</td><td>Foundation</td><td>SLAM system with camera-based localization</td></tr><tr><td><strong>2</strong></td><td>Visual SLAM (ORB-SLAM3)</td><td>3h</td><td>Foundation</td><td>Advanced VSLAM with feature matching</td></tr><tr><td><strong>3</strong></td><td>Isaac Sim</td><td>2.5h</td><td>Advanced</td><td>Photorealistic simulation environment</td></tr><tr><td><strong>4</strong></td><td>Nav2 Path Planning</td><td>3h</td><td>Core</td><td>Complete path planner with Nav2</td></tr><tr><td><strong>5</strong></td><td>Obstacle Avoidance</td><td>3h</td><td>Core</td><td>Dynamic obstacle avoidance system</td></tr><tr><td><strong>6</strong></td><td>Humanoid Navigation</td><td>3h</td><td>Advanced</td><td>Balance-aware navigation for bipeds</td></tr><tr><td><strong>7</strong></td><td>Multi-Sensor Fusion</td><td>3h</td><td>Advanced</td><td>Camera + LiDAR + IMU fusion</td></tr><tr><td><strong>8</strong></td><td>Capstone Mission</td><td>3h</td><td>Integration</td><td>End-to-end autonomous mission</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-learning-paths">🛤️ Learning Paths<a href="#️-learning-paths" class="hash-link" aria-label="Direct link to 🛤️ Learning Paths" title="Direct link to 🛤️ Learning Paths" translate="no">​</a></h2>
+<p>Choose the path that fits your goals and time:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="path-1--foundation-track-lessons-0-1-4-5-8">Path 1: 🌱 Foundation Track (Lessons 0, 1, 4, 5, 8)<a href="#path-1--foundation-track-lessons-0-1-4-5-8" class="hash-link" aria-label="Direct link to Path 1: 🌱 Foundation Track (Lessons 0, 1, 4, 5, 8)" title="Direct link to Path 1: 🌱 Foundation Track (Lessons 0, 1, 4, 5, 8)" translate="no">​</a></h3>
+<p><strong>Duration</strong>: ~12 hours<br>
+<strong>Best for</strong>: Students with limited time or focused on wheeled robots<br>
+<strong>Robot</strong>: Differential drive (TurtleBot3-like)<br>
+<strong>Environment</strong>: Gazebo simulation</p>
+<p><strong>✨ What You&#x27;ll Achieve</strong>: Successfully navigate multi-waypoint missions with obstacle avoidance</p>
+<p><strong>Lessons</strong>:</p>
+<ol>
+<li class="">✅ Introduction (this lesson)</li>
+<li class="">✅ Lesson 1: SLAM &amp; Localization (2.5h)</li>
+<li class="">⏭️ <em>Skip Lesson 2 (optional VSLAM details)</em></li>
+<li class="">⏭️ <em>Skip Lesson 3 (optional Isaac Sim)</em></li>
+<li class="">✅ Lesson 4: Nav2 Path Planning (3h)</li>
+<li class="">✅ Lesson 5: Obstacle Avoidance (3h)</li>
+<li class="">⏭️ <em>Skip advanced lessons</em></li>
+<li class="">✅ Lesson 8: Capstone Mission (3h)</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="path-2--with-isaac-sim-foundation--lesson-3">Path 2: 🚀 With Isaac Sim (Foundation + Lesson 3)<a href="#path-2--with-isaac-sim-foundation--lesson-3" class="hash-link" aria-label="Direct link to Path 2: 🚀 With Isaac Sim (Foundation + Lesson 3)" title="Direct link to Path 2: 🚀 With Isaac Sim (Foundation + Lesson 3)" translate="no">​</a></h3>
+<p><strong>Duration</strong>: ~14.5 hours<br>
+<strong>Best for</strong>: Students interested in photorealistic simulation</p>
+<p><strong>Additional Skills</strong>: Synthetic data generation, advanced visual rendering, NVIDIA Omniverse</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="path-3--humanoid-focus-foundation--lesson-6">Path 3: 💪 Humanoid Focus (Foundation + Lesson 6)<a href="#path-3--humanoid-focus-foundation--lesson-6" class="hash-link" aria-label="Direct link to Path 3: 💪 Humanoid Focus (Foundation + Lesson 6)" title="Direct link to Path 3: 💪 Humanoid Focus (Foundation + Lesson 6)" translate="no">​</a></h3>
+<p><strong>Duration</strong>: ~18 hours<br>
+<strong>Best for</strong>: Students interested in biped robots</p>
+<p><strong>Additional Skills</strong>: Balance constraints, footstep planning, center-of-gravity management, humanoid kinematics</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="path-4--complete-mastery-all-lessons">Path 4: 🎓 Complete Mastery (All Lessons)<a href="#path-4--complete-mastery-all-lessons" class="hash-link" aria-label="Direct link to Path 4: 🎓 Complete Mastery (All Lessons)" title="Direct link to Path 4: 🎓 Complete Mastery (All Lessons)" translate="no">​</a></h3>
+<p><strong>Duration</strong>: ~20 hours<br>
+<strong>Best for</strong>: Comprehensive understanding across all platforms</p>
+<p><strong>✨ What You&#x27;ll Achieve</strong>: Master autonomous navigation for both wheeled and humanoid robots with advanced sensor fusion</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-time-estimates">⏱️ Time Estimates<a href="#️-time-estimates" class="hash-link" aria-label="Direct link to ⏱️ Time Estimates" title="Direct link to ⏱️ Time Estimates" translate="no">​</a></h2>
+<blockquote>
+<p>[!NOTE]
+<strong>Beginner-Friendly Pacing</strong>: These estimates include reading, coding, testing, debugging, and troubleshooting time.</p>
+</blockquote>
+<table><thead><tr><th>Phase</th><th>Foundation</th><th>With Isaac</th><th>With Humanoid</th><th>Complete</th></tr></thead><tbody><tr><td><strong>Core Lessons</strong></td><td>12h</td><td>14.5h</td><td>18h</td><td>20h</td></tr><tr><td><strong>Beginner Buffer</strong></td><td>+3h</td><td>+3.5h</td><td>+4h</td><td>+5h</td></tr><tr><td><strong>Total (Beginner)</strong></td><td><strong>15h</strong></td><td><strong>18h</strong></td><td><strong>22h</strong></td><td><strong>25h</strong></td></tr></tbody></table>
+<p><strong>Recommended Pace</strong>:</p>
+<ul>
+<li class=""><strong>Relaxed</strong>: 1 lesson per week (excellent retention)</li>
+<li class=""><strong>Standard</strong>: 2 lessons per week</li>
+<li class=""><strong>Fast</strong>: 3 lessons per week (experienced students)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-learning-outcomes">🎓 Learning Outcomes<a href="#-learning-outcomes" class="hash-link" aria-label="Direct link to 🎓 Learning Outcomes" title="Direct link to    🎓 Learning Outcomes" translate="no">​</a></h2>
+<p>By completing this chapter, you will master:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-conceptual-understanding">💡 Conceptual Understanding<a href="#-conceptual-understanding" class="hash-link" aria-label="Direct link to 💡 Conceptual Understanding" title="Direct link to 💡 Conceptual Understanding" translate="no">​</a></h3>
+<p><strong>You&#x27;ll be able to explain</strong>:</p>
+<ul>
+<li class="">How SLAM algorithms simultaneously build maps and localize robots</li>
+<li class="">Why multi-level planning (global + local) is necessary</li>
+<li class="">How costmaps represent obstacles and free space</li>
+<li class="">The unique challenges of humanoid navigation (balance, footsteps)</li>
+<li class="">How sensor fusion improves robustness</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-practical-skills">🛠️ Practical Skills<a href="#️-practical-skills" class="hash-link" aria-label="Direct link to 🛠️ Practical Skills" title="Direct link to 🛠️ Practical Skills" translate="no">​</a></h3>
+<p><strong>You&#x27;ll be able to build</strong>:</p>
+<ul>
+<li class="">SLAM systems that work with camera feeds</li>
+<li class="">Nav2 navigation stacks configured for your robot</li>
+<li class="">Obstacle avoidance systems that handle dynamic environments</li>
+<li class="">Multi-sensor fusion pipelines combining camera, LiDAR, and IMU</li>
+<li class="">Complete autonomous missions with waypoint navigation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-problem-solving">🔧 Problem-Solving<a href="#-problem-solving" class="hash-link" aria-label="Direct link to 🔧 Problem-Solving" title="Direct link to 🔧 Problem-Solving" translate="no">​</a></h3>
+<p><strong>You&#x27;ll know how to troubleshoot</strong>:</p>
+<ul>
+<li class="">SLAM failures and drift issues</li>
+<li class="">Path planning getting stuck or failing</li>
+<li class="">Obstacle detection false positives/negatives</li>
+<li class="">Sensor synchronization problems</li>
+<li class="">Navigation parameter tuning</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-prerequisites">✅ Prerequisites<a href="#-prerequisites" class="hash-link" aria-label="Direct link to ✅ Prerequisites" title="Direct link to ✅ Prerequisites" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="required-knowledge-from-previous-chapters">Required Knowledge (from Previous Chapters)<a href="#required-knowledge-from-previous-chapters" class="hash-link" aria-label="Direct link to Required Knowledge (from Previous Chapters)" title="Direct link to Required Knowledge (from Previous Chapters)" translate="no">​</a></h3>
+<p><strong>From Chapter 1: ROS 2 Fundamentals</strong></p>
+<ul>
+<li class="">✓ ROS 2 node architecture (publishers, subscribers, services)</li>
+<li class="">✓ ROS 2 launch files and parameter servers</li>
+<li class="">✓ Basic debugging (<code>ros2 topic list</code>, <code>rqt_graph</code>)</li>
+</ul>
+<p><strong>From Chapter 2: Gazebo &amp; Robot Modeling</strong></p>
+<ul>
+<li class="">✓ URDF robot model creation</li>
+<li class="">✓ Gazebo physics simulation and sensor plugins</li>
+<li class="">✓ TF frames and transformations</li>
+<li class="">✓ Gazebo world files and environment modeling</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="required-software">Required Software<a href="#required-software" class="hash-link" aria-label="Direct link to Required Software" title="Direct link to Required Software" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>OS</strong>: Ubuntu 22.04 LTS (or WSL2/Docker)</li>
+<li class=""><strong>ROS 2</strong>: Humble release (required for compatibility)</li>
+<li class=""><strong>Gazebo</strong>: 11 or newer</li>
+<li class=""><strong>Python</strong>: 3.10+</li>
+<li class=""><strong>Hardware</strong>: 8GB RAM minimum, dual-core CPU</li>
+<li class=""><strong>Disk space</strong>: 5GB (10GB if using Isaac Sim)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-quick-environment-check">🔍 Quick Environment Check<a href="#-quick-environment-check" class="hash-link" aria-label="Direct link to 🔍 Quick Environment Check" title="Direct link to 🔍 Quick Environment Check" translate="no">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Check ROS 2 + Nav2</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ros2 --version</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ros2 pkg list | grep nav2</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Check Gazebo</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">gazebo --version</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Check Python</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">python3 --version</span><br></span></code></pre></div></div>
+<blockquote>
+<p>[!WARNING]
+<strong>Missing Nav2?</strong> Install it with: <code>sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup</code></p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-key-concepts-youll-master">🧩 Key Concepts You&#x27;ll Master<a href="#-key-concepts-youll-master" class="hash-link" aria-label="Direct link to 🧩 Key Concepts You&#x27;ll Master" title="Direct link to 🧩 Key Concepts You&#x27;ll Master" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="slam-simultaneous-localization-and-mapping">SLAM (Simultaneous Localization and Mapping)<a href="#slam-simultaneous-localization-and-mapping" class="hash-link" aria-label="Direct link to SLAM (Simultaneous Localization and Mapping)" title="Direct link to SLAM (Simultaneous Localization and Mapping)" translate="no">​</a></h3>
+<p><strong>Problem</strong>: How does a robot navigate an unknown environment without a map?</p>
+<p><strong>Solution</strong>: The robot simultaneously builds a map AND localizes itself within that map using visual features and odometry.</p>
+<blockquote>
+<p>[!TIP]
+<strong>Real-World Analogy</strong>: Walking through a new building, you remember distinctive rooms/hallways and use them to estimate where you are. SLAM does this computationally using camera images!</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="costmaps--planning">Costmaps &amp; Planning<a href="#costmaps--planning" class="hash-link" aria-label="Direct link to Costmaps &amp; Planning" title="Direct link to Costmaps &amp; Planning" translate="no">​</a></h3>
+<p><strong>Problem</strong>: How does a robot plan collision-free paths?</p>
+<p><strong>Solution</strong>: Convert sensor data (LiDAR, camera) into a gridded &quot;cost&quot; map where high-cost regions represent obstacles. Use graph search algorithms to find low-cost paths.</p>
+<blockquote>
+<p>[!TIP]
+<strong>Real-World Analogy</strong>: Drawing a grid on a map, marking obstacles, and using A* search to find routes around them.</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="humanoid-constraints">Humanoid Constraints<a href="#humanoid-constraints" class="hash-link" aria-label="Direct link to Humanoid Constraints" title="Direct link to Humanoid Constraints" translate="no">​</a></h3>
+<p><strong>Problem</strong>: How is humanoid navigation different from wheeled robots?</p>
+<p><strong>Solution</strong>: Humanoids must maintain <strong>balance</strong> (center of gravity within support polygon) and <strong>valid footing</strong> (feet must land on solid ground).</p>
+<blockquote>
+<p>[!TIP]
+<strong>Real-World Analogy</strong>: You walk carefully on ice because your stability margin is reduced. Humanoid robots account for similar constraints!</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="multi-sensor-fusion">Multi-Sensor Fusion<a href="#multi-sensor-fusion" class="hash-link" aria-label="Direct link to Multi-Sensor Fusion" title="Direct link to Multi-Sensor Fusion" translate="no">​</a></h3>
+<p><strong>Problem</strong>: Which sensor should I trust?</p>
+<p><strong>Solution</strong>: Combine sensors intelligently based on their strengths:</p>
+<ul>
+<li class=""><strong>Cameras</strong>: Rich visual information, works in daylight, fails in darkness</li>
+<li class=""><strong>LiDAR</strong>: Robust geometry, works day/night, limited range</li>
+<li class=""><strong>IMU</strong>: Immediate motion data, drifts over time</li>
+</ul>
+<blockquote>
+<p>[!TIP]
+<strong>Real-World Analogy</strong>: You navigate using both vision and balance (inner ear). You trust different senses in different conditions!</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-success-criteria">🎯 Success Criteria<a href="#-success-criteria" class="hash-link" aria-label="Direct link to 🎯 Success Criteria" title="Direct link to 🎯 Success Criteria" translate="no">​</a></h2>
+<p>Track your progress with these checkpoints:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="after-lesson-1-slam--localization">After Lesson 1 (SLAM &amp; Localization):<a href="#after-lesson-1-slam--localization" class="hash-link" aria-label="Direct link to After Lesson 1 (SLAM &amp; Localization):" title="Direct link to After Lesson 1 (SLAM &amp; Localization):" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Explain how SLAM algorithms work</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Configure a basic SLAM system</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Understand localization vs mapping trade-offs</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="after-lessons-4-5-nav2--obstacle-avoidance">After Lessons 4-5 (Nav2 &amp; Obstacle Avoidance):<a href="#after-lessons-4-5-nav2--obstacle-avoidance" class="hash-link" aria-label="Direct link to After Lessons 4-5 (Nav2 &amp; Obstacle Avoidance):" title="Direct link to After Lessons 4-5 (Nav2 &amp; Obstacle Avoidance):" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Configure Nav2 for a differential drive robot</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Successfully navigate to goal poses</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Implement dynamic obstacle avoidance</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Tune navigation parameters</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="after-lesson-8-capstone">After Lesson 8 (Capstone):<a href="#after-lesson-8-capstone" class="hash-link" aria-label="Direct link to After Lesson 8 (Capstone):" title="Direct link to After Lesson 8 (Capstone):" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Execute multi-waypoint autonomous missions</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Handle dynamic obstacles in real-time</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Debug and recover from navigation failures</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Evaluate system performance metrics</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="advanced-optional">Advanced (Optional):<a href="#advanced-optional" class="hash-link" aria-label="Direct link to Advanced (Optional):" title="Direct link to Advanced (Optional):" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Configure Isaac Sim environments (Lesson 3)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Implement humanoid navigation with balance (Lesson 6)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Build multi-sensor fusion pipelines (Lesson 7)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-common-questions-faq">❓ Common Questions (FAQ)<a href="#-common-questions-faq" class="hash-link" aria-label="Direct link to ❓ Common Questions (FAQ)" title="Direct link to ❓ Common Questions (FAQ)" translate="no">​</a></h2>
+<p><strong>Q: Do I need real hardware for this chapter?</strong><br>
+<!-- -->A: No! Everything works in simulation (Gazebo or Isaac Sim). Real hardware deployment is covered in later chapters.</p>
+<p><strong>Q: Should I complete all lessons or can I skip some?</strong><br>
+<!-- -->A: Follow one of the learning paths! The Foundation Track (12h) gives you complete autonomous navigation. Advanced lessons (Isaac Sim, Humanoids, Sensor Fusion) are optional enhancements.</p>
+<p><strong>Q: What if I get stuck on SLAM or Nav2 configuration?</strong><br>
+<!-- -->A: Every lesson has comprehensive troubleshooting sections covering common issues. Use the AI collaboration prompts to get help understanding concepts!</p>
+<p><strong>Q: Is this chapter harder than Chapter 2?</strong><br>
+<!-- -->A: It builds on Chapter 2, so concepts flow naturally. The main difference: you&#x27;re now integrating multiple systems (SLAM + Planning + Control) instead of building individual components.</p>
+<p><strong>Q: Can I use a different robot than TurtleBot3?</strong><br>
+<!-- -->A: Yes! The concepts apply to any differential drive robot. We use TurtleBot3 as the example because it&#x27;s widely supported in ROS 2.</p>
+<p><strong>Q: How much math do I need to know?</strong><br>
+<!-- -->A: Basic understanding of coordinate frames, vectors, and graphs helps. We focus on <strong>practical implementation</strong> rather than deep mathematical theory.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-how-to-use-this-chapter">📖 How to Use This Chapter<a href="#-how-to-use-this-chapter" class="hash-link" aria-label="Direct link to 📖 How to Use This Chapter" title="Direct link to 📖 How to Use This Chapter" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for-self-study">For Self-Study:<a href="#for-self-study" class="hash-link" aria-label="Direct link to For Self-Study:" title="Direct link to For Self-Study:" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Choose</strong> your learning path (Foundation recommended for first time)</li>
+<li class=""><strong>Read</strong> each lesson introduction and key concepts carefully</li>
+<li class=""><strong>Follow</strong> code examples step-by-step (type, don&#x27;t copy-paste!)</li>
+<li class=""><strong>Experiment</strong> by modifying parameters and observing behavior</li>
+<li class=""><strong>Check</strong> self-assessment checklists at lesson end</li>
+<li class=""><strong>Troubleshoot</strong> using comprehensive guides in each lesson</li>
+</ol>
+<blockquote>
+<p>[!TIP]
+<strong>Learning Strategy</strong>: Complete the Foundation Track first, then return for advanced topics if interested. Mastery &gt; breadth!</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for-instructors">For Instructors:<a href="#for-instructors" class="hash-link" aria-label="Direct link to For Instructors:" title="Direct link to For Instructors:" translate="no">​</a></h3>
+<ul>
+<li class="">Lessons fit <strong>2-3 hour lab sessions</strong></li>
+<li class="">Foundation Track = <strong>6-7 class periods</strong></li>
+<li class="">Independent code examples for live demos</li>
+<li class="">Self-assessment replaces traditional quizzes</li>
+<li class="">Capstone project tests integration skills</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-chapter-roadmap">🗺️ Chapter Roadmap<a href="#️-chapter-roadmap" class="hash-link" aria-label="Direct link to 🗺️ Chapter Roadmap" title="Direct link to 🗺️ Chapter Roadmap" translate="no">​</a></h2>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">📘 Chapter 3: Autonomous Navigation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Introduction (this lesson) - 15 min</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Understand navigation challenges and choose learning path</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 1: SLAM &amp; Localization - 2.5h</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Build SLAM system, understand mapping and localization</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 2: Visual SLAM (ORB-SLAM3) - 3h [OPTIONAL]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Advanced VSLAM with feature matching and loop closure</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 3: Isaac Sim - 2.5h [OPTIONAL - ADVANCED]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Photorealistic simulation with NVIDIA Omniverse</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 4: Nav2 Path Planning - 3h</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Configure Nav2 stack for autonomous navigation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 5: Obstacle Avoidance - 3h</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Dynamic obstacle detection and avoidance</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 6: Humanoid Navigation - 3h [OPTIONAL - ADVANCED]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Balance-aware navigation for biped robots</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── 📄 Lesson 7: Multi-Sensor Fusion - 3h [OPTIONAL - ADVANCED]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └─ 🎯 Combine camera, LiDAR, and IMU for robust perception</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└── 📄 Lesson 8: Capstone Mission - 3h</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ 🎯 End-to-end autonomous multi-waypoint mission</span><br></span></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-important-notes">🚨 Important Notes<a href="#-important-notes" class="hash-link" aria-label="Direct link to 🚨 Important Notes" title="Direct link to 🚨 Important Notes" translate="no">​</a></h2>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Nav2 Installation Required</strong>: This chapter heavily uses Nav2. Install before starting:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup</span><br></span></code></pre></div></div>
+</blockquote>
+<blockquote>
+<p>[!WARNING]
+<strong>Isaac Sim is Optional</strong>: Lesson 3 requires NVIDIA GPU and 20GB disk space. Skip if you don&#x27;t have proper hardware—all other lessons work in standard Gazebo.</p>
+</blockquote>
+<blockquote>
+<p>[!TIP]
+<strong>Simulation First</strong>: Master navigation in simulation before attempting real robots. Simulation lets you iterate 100x faster!</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-ready-to-begin">🚀 Ready to Begin?<a href="#-ready-to-begin" class="hash-link" aria-label="Direct link to 🚀 Ready to Begin?" title="Direct link to 🚀 Ready to Begin?" translate="no">​</a></h2>
+<p>You&#x27;re about to embark on one of the most exciting areas of robotics! Autonomous navigation combines computer vision, machine learning, path planning, and real-time control into elegant systems that truly &quot;think&quot; for themselves.</p>
+<p><strong>Don&#x27;t rush</strong>—understanding the fundamentals sets you up for success in advanced topics. Take breaks, experiment, debug, and most importantly: <strong>have fun building autonomous robots!</strong></p>
+<p><strong>Next Step</strong>: Head to Lesson 1 to learn how SLAM enables robots to navigate unknown environments.</p>
+<p>👉 <a class="" href="/docs/Autonomous-Navigation/navigation-and-localization-overview">Go to Lesson 1: SLAM &amp; Localization Overview →</a></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-quick-troubleshooting">🔧 Quick Troubleshooting<a href="#-quick-troubleshooting" class="hash-link" aria-label="Direct link to 🔧 Quick Troubleshooting" title="Direct link to 🔧 Quick Troubleshooting" translate="no">​</a></h2>
+<blockquote>
+<p>[!WARNING]
+<strong>Common Setup Issues</strong>: If you encounter errors, try these fixes:</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nav2-not-found">Nav2 Not Found<a href="#nav2-not-found" class="hash-link" aria-label="Direct link to Nav2 Not Found" title="Direct link to Nav2 Not Found" translate="no">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install Nav2 packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt update</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-turtlebot3*</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="slam-packages-missing">SLAM Packages Missing<a href="#slam-packages-missing" class="hash-link" aria-label="Direct link to SLAM Packages Missing" title="Direct link to SLAM Packages Missing" translate="no">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install SLAM Toolbox</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-slam-toolbox</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="turtlebot3-models-not-found">TurtleBot3 Models Not Found<a href="#turtlebot3-models-not-found" class="hash-link" aria-label="Direct link to TurtleBot3 Models Not Found" title="Direct link to TurtleBot3 Models Not Found" translate="no">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Set TurtleBot3 model environment variable</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">echo &quot;export TURTLEBOT3_MODEL=waffle&quot; &gt;&gt; ~/.bashrc</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">source ~/.bashrc</span><br></span></code></pre></div></div>
+<hr>
+<p><strong>Chapter 3 Status</strong>: Complete with 8 lessons + capstone covering SLAM, Nav2, humanoid navigation, and sensor fusion</p>
+<p><strong>Last Updated</strong>: 2025-11-29 (Optimized for Beginners)</p>
+<p><strong>Estimated Completion</strong>: 12-25 hours (depending on chosen learning path)</p>
+<p>Welcome to the future of autonomous robotics! 🤖🗺️</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/your-org/ai-book/tree/main/docs/04-Autonomous-Navigation/00-intro.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/Gazebo-Simulation/multi-robot-capstone"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Lesson 8: Multi-Robot Capstone Project</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/Autonomous-Navigation/navigation-and-localization-overview"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Lesson 1: Navigation and Localization Overview</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#-welcome-to-autonomous-navigation" class="table-of-contents__link toc-highlight">🎯 Welcome to Autonomous Navigation!</a><ul><li><a href="#the-challenge" class="table-of-contents__link toc-highlight">The Challenge</a></li></ul></li><li><a href="#-why-this-matters" class="table-of-contents__link toc-highlight">🌟 Why This Matters</a></li><li><a href="#-what-makes-this-hard" class="table-of-contents__link toc-highlight">🧠 What Makes This Hard?</a><ul><li><a href="#1--localization-where-am-i" class="table-of-contents__link toc-highlight">1. 📍 <strong>Localization</strong>: Where am I?</a></li><li><a href="#2-️-mapping-whats-around-me" class="table-of-contents__link toc-highlight">2. 🗺️ <strong>Mapping</strong>: What&#39;s around me?</a></li><li><a href="#3-️-path-planning-how-do-i-get-there" class="table-of-contents__link toc-highlight">3. 🛤️ <strong>Path Planning</strong>: How do I get there?</a></li></ul></li><li><a href="#-chapter-overview" class="table-of-contents__link toc-highlight">📚 Chapter Overview</a></li><li><a href="#️-learning-paths" class="table-of-contents__link toc-highlight">🛤️ Learning Paths</a><ul><li><a href="#path-1--foundation-track-lessons-0-1-4-5-8" class="table-of-contents__link toc-highlight">Path 1: 🌱 Foundation Track (Lessons 0, 1, 4, 5, 8)</a></li><li><a href="#path-2--with-isaac-sim-foundation--lesson-3" class="table-of-contents__link toc-highlight">Path 2: 🚀 With Isaac Sim (Foundation + Lesson 3)</a></li><li><a href="#path-3--humanoid-focus-foundation--lesson-6" class="table-of-contents__link toc-highlight">Path 3: 💪 Humanoid Focus (Foundation + Lesson 6)</a></li><li><a href="#path-4--complete-mastery-all-lessons" class="table-of-contents__link toc-highlight">Path 4: 🎓 Complete Mastery (All Lessons)</a></li></ul></li><li><a href="#️-time-estimates" class="table-of-contents__link toc-highlight">⏱️ Time Estimates</a></li><li><a href="#-learning-outcomes" class="table-of-contents__link toc-highlight">🎓 Learning Outcomes</a><ul><li><a href="#-conceptual-understanding" class="table-of-contents__link toc-highlight">💡 Conceptual Understanding</a></li><li><a href="#️-practical-skills" class="table-of-contents__link toc-highlight">🛠️ Practical Skills</a></li><li><a href="#-problem-solving" class="table-of-contents__link toc-highlight">🔧 Problem-Solving</a></li></ul></li><li><a href="#-prerequisites" class="table-of-contents__link toc-highlight">✅ Prerequisites</a><ul><li><a href="#required-knowledge-from-previous-chapters" class="table-of-contents__link toc-highlight">Required Knowledge (from Previous Chapters)</a></li><li><a href="#required-software" class="table-of-contents__link toc-highlight">Required Software</a></li><li><a href="#-quick-environment-check" class="table-of-contents__link toc-highlight">🔍 Quick Environment Check</a></li></ul></li><li><a href="#-key-concepts-youll-master" class="table-of-contents__link toc-highlight">🧩 Key Concepts You&#39;ll Master</a><ul><li><a href="#slam-simultaneous-localization-and-mapping" class="table-of-contents__link toc-highlight">SLAM (Simultaneous Localization and Mapping)</a></li><li><a href="#costmaps--planning" class="table-of-contents__link toc-highlight">Costmaps &amp; Planning</a></li><li><a href="#humanoid-constraints" class="table-of-contents__link toc-highlight">Humanoid Constraints</a></li><li><a href="#multi-sensor-fusion" class="table-of-contents__link toc-highlight">Multi-Sensor Fusion</a></li></ul></li><li><a href="#-success-criteria" class="table-of-contents__link toc-highlight">🎯 Success Criteria</a><ul><li><a href="#after-lesson-1-slam--localization" class="table-of-contents__link toc-highlight">After Lesson 1 (SLAM &amp; Localization):</a></li><li><a href="#after-lessons-4-5-nav2--obstacle-avoidance" class="table-of-contents__link toc-highlight">After Lessons 4-5 (Nav2 &amp; Obstacle Avoidance):</a></li><li><a href="#after-lesson-8-capstone" class="table-of-contents__link toc-highlight">After Lesson 8 (Capstone):</a></li><li><a href="#advanced-optional" class="table-of-contents__link toc-highlight">Advanced (Optional):</a></li></ul></li><li><a href="#-common-questions-faq" class="table-of-contents__link toc-highlight">❓ Common Questions (FAQ)</a></li><li><a href="#-how-to-use-this-chapter" class="table-of-contents__link toc-highlight">📖 How to Use This Chapter</a><ul><li><a href="#for-self-study" class="table-of-contents__link toc-highlight">For Self-Study:</a></li><li><a href="#for-instructors" class="table-of-contents__link toc-highlight">For Instructors:</a></li></ul></li><li><a href="#️-chapter-roadmap" class="table-of-contents__link toc-highlight">🗺️ Chapter Roadmap</a></li><li><a href="#-important-notes" class="table-of-contents__link toc-highlight">🚨 Important Notes</a></li><li><a href="#-ready-to-begin" class="table-of-contents__link toc-highlight">🚀 Ready to Begin?</a></li><li><a href="#-quick-troubleshooting" class="table-of-contents__link toc-highlight">🔧 Quick Troubleshooting</a><ul><li><a href="#nav2-not-found" class="table-of-contents__link toc-highlight">Nav2 Not Found</a></li><li><a href="#slam-packages-missing" class="table-of-contents__link toc-highlight">SLAM Packages Missing</a></li><li><a href="#turtlebot3-models-not-found" class="table-of-contents__link toc-highlight">TurtleBot3 Models Not Found</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Content</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/01-Welcome/01-introduction">Book</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/your-org/ai-book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/blog">Blog</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 AI-Native Book. Built with Docusaurus.</div></div></div></footer><button class="chat-widget-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button></div>
+</body>
+</html>
