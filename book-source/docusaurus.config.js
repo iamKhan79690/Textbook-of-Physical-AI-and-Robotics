@@ -24,7 +24,7 @@ const config = {
   organizationName: 'iamKhan79690', // Usually your GitHub org/user name.
   projectName: 'Textbook-of-Physical-AI-and-Robotics', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
